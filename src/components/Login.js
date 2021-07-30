@@ -7,8 +7,16 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import { auth, provider } from "../firebase.js";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setUserLoginDetails,
+  setifnewUser,
+  selectisNewUser,
+} from "../features/user/userSlice";
 function Login() {
+  const newUser = useSelector(selectisNewUser);
   const [Email, setEmail] = useState("");
+  const dispatch = useDispatch();
   const [password, setPassword] = useState("");
   const history = useHistory();
   const SignIn = (e) => {
@@ -25,8 +33,11 @@ function Login() {
         return firebase
           .auth()
           .signInWithEmailAndPassword(Email, password)
-          .then((user) => {
-            console.log(user);
+          .then((result) => {
+            dispatch(
+              setifnewUser({ isNewUser: result.additionalUserInfo.isNewUser })
+            );
+            setUser(result.user);
             history.push("/home");
           });
       })
@@ -34,6 +45,16 @@ function Login() {
         // Handle Errors here.
         alert("Wrong Username or Password");
       });
+  };
+  const setUser = (user) => {
+    dispatch(
+      setUserLoginDetails({
+        name: user.displayName,
+        email: user.email,
+        photo: user.photoURL,
+        password: password,
+      })
+    );
   };
   return (
     <div className="container">
@@ -75,6 +96,7 @@ function Login() {
           <a class="form__link" href="/register" id="linkCreateAccount">
             Don't have an account? Create account
           </a>
+          {console.log(newUser)}
         </p>
       </form>
     </div>

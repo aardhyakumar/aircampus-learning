@@ -7,14 +7,48 @@ import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
-import { auth, provider } from "../firebase.js";
+import { auth, dbRef, provider } from "../firebase.js";
+import { useDispatch } from "react-redux";
+import {
+  selectUserEmail,
+  selectUserName,
+  selectUserPhoto,
+  setSignOutState,
+  setUserLoginDetails,
+  setnewUser,
+  selectUserPassword,
+} from "../features/user/userSlice";
+import { useSelector } from "react-redux";
 function Header() {
+  const dispatch = useDispatch();
   const history = useHistory();
+  const userPhoto = useSelector(selectUserPhoto);
+  const useremail = useSelector(selectUserEmail);
+
   const logout = () => {
     auth.signOut().then(() => {
       history.push("/");
     });
   };
+  const password = useSelector(selectUserPassword);
+  useEffect(() => {
+    const refUserInformation = firebase.database().ref("user");
+    const currentUserQuery = refUserInformation
+      .orderByChild("password")
+      .equalTo(password);
+    currentUserQuery.on("value", function (snapshot) {
+      snapshot.forEach((data) => {
+        var userName = data.val().fullName;
+        dispatch(
+          setnewUser({
+            name: userName,
+          })
+        );
+      });
+    });
+  }, [password]);
+
+  const Name = useSelector(selectUserName);
   return (
     <Container>
       <Link to="/home">
@@ -37,7 +71,7 @@ function Header() {
           <span>ABOUT US</span>
         </a>
       </NavMenu>
-
+      <p>{Name}</p>
       <Login onClick={logout}>
         <strong>Log Out</strong>
       </Login>

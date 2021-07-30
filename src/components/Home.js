@@ -1,33 +1,51 @@
 import React from "react";
 import styled from "styled-components";
 import ReactPlayer from "react-player";
+import { useSelector } from "react-redux";
+import firebase from "firebase";
+import {
+  selectUserEmail,
+  selectUserName,
+  selectUserPhoto,
+  setSignOutState,
+  setUserLoginDetails,
+  selectUserPassword,
+  selectisNewUser,
+} from "../features/user/userSlice";
+import { auth, dbRef, provider } from "../firebase.js";
 function Home() {
+  const newUser = useSelector(selectisNewUser);
+  console.log(newUser);
   return (
     <Container>
-      <Banner>
-        <Banner_left>
-          <ReactPlayer
-            url="https://www.youtube.com/watch?v=qdpXxGPqW-Y"
-            controls="true"
-            className="react-player"
-            width="100%"
-            height="100%"
-            playsinline="true"
-          />
-        </Banner_left>
-        <Banner_right>
-          <h1 className="heding_new">
-            The <span>Journey </span>to your
-          </h1>
-          <h2 className="heding">
-            <span>Successful</span> Career starts with
-          </h2>
-          <h2>
-            <span>Us</span>
-          </h2>
-          <Button>Click on the video to learn more</Button>
-        </Banner_right>
-      </Banner>
+      {newUser == true ? (
+        <Banner>
+          <Banner_left>
+            <ReactPlayer
+              url="https://www.youtube.com/watch?v=qdpXxGPqW-Y"
+              controls="true"
+              className="react-player"
+              width="100%"
+              height="100%"
+              playsinline="true"
+            />
+          </Banner_left>
+          <Banner_right>
+            <h1 className="heding_new">
+              The <span>Journey </span>to your
+            </h1>
+            <h2 className="heding">
+              <span>Successful</span> Career starts with
+            </h2>
+            <h2>
+              <span>Us</span>
+            </h2>
+            <Button>Click on the video to learn more</Button>
+          </Banner_right>
+        </Banner>
+      ) : (
+        <Banner></Banner>
+      )}
     </Container>
   );
 }

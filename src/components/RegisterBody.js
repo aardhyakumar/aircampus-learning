@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import Register from "./Register.js";
+import RegisterOld from "./RegisterOld.js";
 function RegisterBody() {
   return (
     <Container>
-      <Register />
+      <RegisterOld />
     </Container>
   );
 }

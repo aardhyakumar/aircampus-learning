@@ -15,6 +15,18 @@ body {
   background: none;
   background-size: cover;
 }
+.alert {
+  position: relative;
+  bottom: 10vh;
+  left: 0.8vw;
+  font-size: 1.5vw;
+  padding: 1vw;
+  border-radius: 6px;
+  background-color: #ffd2d2;
+  color: black;
+  border: 2px solid #d8000c;
+  font-weight: 200 !important;
+}
 .container {
   width: 10vw;
   height: 650px;
@@ -68,7 +80,7 @@ body {
 
 .form__title {
   margin-top: 2rem;
-
+  font-size: 3vw;
   text-align: center;
 }
 
@@ -132,9 +144,10 @@ body {
   position: relative;
   width: 150%;
   padding: 0.75rem;
-  right: 3.5vw;
-  margin-bottom: 3px;
+  right: 0vw;
+  margin-bottom: 5px;
   box-sizing: border-box;
+  width: 25vw;
   border-radius: 18px;
   border: 2px solid lightgray;
   outline: none;
@@ -159,12 +172,12 @@ body {
 }
 
 .form__button {
-  width: 50%;
+  width: 20vw;
   margin-top: 15px;
   margin-bottom: 10px;
   padding: 1rem 2rem;
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: 1.8vw;
   color: white;
   border: 2px solid #444444;
   border-radius: 30px;
@@ -211,6 +224,7 @@ body {
   color: #0645ad;
   text-decoration: none;
   cursor: pointer;
+  font-size: 1.5vw;
   margin-bottom: -10px;
 }
 

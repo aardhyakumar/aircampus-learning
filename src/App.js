@@ -17,18 +17,6 @@ import { auth, provider } from "./firebase.js";
 import Home from "./components/Home";
 function App() {
   const history = useHistory();
-  useEffect(() => {
-    return () => {
-      auth.onAuthStateChanged(async (auth) => {
-        if (auth) {
-          history.push("/home");
-          console.log(auth);
-        } else {
-          history.push("/home");
-        }
-      });
-    };
-  }, []);
   return (
     <div className="App">
       <Router>
