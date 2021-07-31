@@ -71,7 +71,6 @@ function RegisterOld() {
       [name]: value,
     });
   };
-  console.log(Values);
   return (
     <div className="container">
       <form className="form" id="login">

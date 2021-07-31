@@ -15,6 +15,7 @@ import {
 import { auth, dbRef, provider } from "../firebase.js";
 function Home() {
   const newUser = useSelector(selectisNewUser);
+  const user = useSelector(selectUserName);
   console.log(newUser);
   return (
     <Container>
@@ -44,7 +45,15 @@ function Home() {
           </Banner_right>
         </Banner>
       ) : (
-        <Banner></Banner>
+        <BannerOld>
+          <WELCOME>
+            <Box>
+              <h1>Welcome Back</h1>
+              <h2>{user}</h2>
+              <h3>Let's Get Started !!!</h3>
+            </Box>
+          </WELCOME>
+        </BannerOld>
       )}
     </Container>
   );
@@ -70,6 +79,18 @@ const Banner = styled.div`
   top: 90px;
   bottom: 0;
   height: 70vh;
+  box-shadow: 5px 5px 60px #444444;
+`;
+const BannerOld = styled.div`
+  position: relative;
+  left: 0;
+  background: #444444;
+  font-family: "Montserrat", sans-serif;
+  padding: 40px;
+  right: 0;
+  top: 90px;
+  bottom: 0;
+  height: 35vw;
   box-shadow: 5px 5px 60px #444444;
 `;
 const Banner_left = styled.div`
@@ -139,5 +160,50 @@ const Button = styled.a`
     opacity: 0.8;
     color: black;
     border: 2px solid black;
+  }
+`;
+const WELCOME = styled.div`
+  position: absolute;
+  left: 0;
+  background: black;
+  top: 0;
+  font-family: "Montserrat", sans-serif;
+  right: 0;
+  margin: 0 0.2vw;
+  height: 35vw;
+  box-shadow: 5px 5px 60px #444444;
+`;
+const Box = styled.div`
+  position: relative;
+  left: 0;
+  top: 0;
+  bottom: 6vh;
+  font-family: "Montserrat", sans-serif;
+  right: 0;
+  margin: 0 0.2vw;
+  height: 18vw;
+  h1 {
+    color: #ef6603;
+    padding: 3vw;
+    margin: 0;
+    top: 2vw;
+    position: absolute;
+    left: 5vw;
+    font-size: 8vw;
+  }
+  h2 {
+    color: white;
+    position: absolute;
+    top: 15vw;
+    left: 9vw;
+    font-size: 3vw;
+  }
+  h3 {
+    color: white;
+    position: absolute;
+    top: 23vw;
+    left: 9vw;
+    font-size: 3vw;
+    color: #ef6603;
   }
 `;

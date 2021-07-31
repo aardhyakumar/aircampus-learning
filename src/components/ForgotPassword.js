@@ -37,11 +37,11 @@ function ForgotPassword() {
   return (
     <Container>
       <div className="container__reset">
-        <form class="form" id="">
+        <form class="form__reset" id="">
           <img src="/images/password-reset.png " className="reset_img" />
           <h1 class="form__title">Reset Your Password</h1>
           <div class="form__message form__message--error"></div>
-          <div class="form__input-group">
+          <div class="form__input-group__reset">
             <input
               type="text"
               class="form__input"
@@ -55,6 +55,9 @@ function ForgotPassword() {
           <button class="form__button__reset" type="submit" onClick={Reset}>
             Reset Your Password
           </button>
+          <a class="form__link__reset" href="/" id="linkCreateAccount">
+            Go back to Login
+          </a>
         </form>
       </div>
     </Container>

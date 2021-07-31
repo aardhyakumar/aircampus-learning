@@ -59,19 +59,26 @@ function Header() {
 
       <NavMenu>
         <a>
-          <span>MENU</span>
+          <span>Home</span>
+        </a>
+
+        <a>
+          <span>Courses</span>
         </a>
         <a>
-          <span>SEARCH</span>
-        </a>
-        <a>
-          <span>COURSES</span>
-        </a>
-        <a>
-          <span>ABOUT US</span>
+          <span>About Us</span>
         </a>
       </NavMenu>
-      <p>{Name}</p>
+      <InfoBox>
+        <p className="welcome">Hello..</p>
+        <p>{Name}</p>
+      </InfoBox>
+
+      {userPhoto ? (
+        <img src={userPhoto} className="user_avatar" />
+      ) : (
+        <img src="/images/user-avatar.png" className="user_avatar" />
+      )}
       <Login onClick={logout}>
         <strong>Log Out</strong>
       </Login>
@@ -95,6 +102,14 @@ const Container = styled.nav`
   padding: 0 36px;
   letter-spacing: 12px;
   z-index: 1;
+  .user_avatar {
+    height: 40px;
+    border: 2px solid white;
+    border-radius: 20px;
+    background-color: lightgray;
+    position: relative;
+    right: 1vw;
+  }
 `;
 const Logo = styled.a`
   padding: 0;
@@ -175,17 +190,15 @@ const NavMenu = styled.div`
   }
 `;
 const Login = styled.a`
-  padding: 8px 15px;
-  margin-right: 2vw;
-  margin-left: 4vw;
+  padding: 8px 1vw;
   display: flex;
   position: relative;
-  right: 0vw;
+  right: 1vw;
   overflow: hidden;
   align-items: center;
   border: 2px solid #ef6603;
   background-color: #444444;
-  letter-spacing: 1.2px;
+  letter-spacing: 1px;
   border-radius: 8px;
   color: white;
   cursor: pointer;
@@ -216,5 +229,28 @@ const SearchBar = styled.div`
     border: none;
     padding: 10px;
     border-radius: 24px;
+  }
+`;
+const InfoBox = styled.div`
+  width: 7vw;
+  position: relative;
+  .welcome {
+    position: relative;
+    margin-bottom: 1vh;
+    top: 0;
+    right: 4vw;
+    border: none;
+    bottom: 4vh;
+    color: white;
+    font-size: 1.5vw;
+  }
+  p {
+    position: relative;
+    letter-spacing: 1px;
+    font-size: 0.8vw;
+    color: #f9f9f9;
+    left: 1vw;
+    margin: 0;
+    border-top: 1px solid white;
   }
 `;

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Login from "./Login.js";
-import Logintest from "./Logintest.js";
+import "./Logintest.css";
 import Register from "./Register.js";
 function Body() {
   return (

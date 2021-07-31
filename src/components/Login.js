@@ -16,6 +16,7 @@ import {
 function Login() {
   const newUser = useSelector(selectisNewUser);
   const [Email, setEmail] = useState("");
+  const [alert, setalert] = useState("");
   const dispatch = useDispatch();
   const [password, setPassword] = useState("");
   const history = useHistory();
@@ -43,7 +44,8 @@ function Login() {
       })
       .catch((error) => {
         // Handle Errors here.
-        alert("Wrong Username or Password");
+        console.log(error.message);
+        setalert("Wrong Username or Password");
       });
   };
   const setUser = (user) => {
@@ -96,7 +98,7 @@ function Login() {
           <a class="form__link" href="/register" id="linkCreateAccount">
             Don't have an account? Create account
           </a>
-          {console.log(newUser)}
+          {alert && <h3 className="alert__login">{alert}</h3>}
         </p>
       </form>
     </div>
