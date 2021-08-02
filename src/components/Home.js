@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ReactPlayer from "react-player";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import firebase from "firebase";
 import {
   selectUserEmail,
@@ -11,23 +11,42 @@ import {
   setUserLoginDetails,
   selectUserPassword,
   selectisNewUser,
+  setnewUser,
+  setifnewUser,
 } from "../features/user/userSlice";
 import { auth, dbRef, provider } from "../firebase.js";
 import { useHistory } from "react-router";
 function Home() {
+  const dispatch = useDispatch();
   const newUser = useSelector(selectisNewUser);
   const user = useSelector(selectUserName);
   const [playing, setplaying] = useState(false);
   const email = useSelector(selectUserEmail);
   const history = useHistory();
   useEffect(() => {
-    if (email) {
-      console.log(user);
-      history.push("/home");
-    } else {
-      history.push("/");
-    }
-  }, [email]);
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        history.push("/home");
+        const checkUser = JSON.parse(window.localStorage.getItem("user")).name;
+        const NewUser = JSON.parse(
+          window.localStorage.getItem("newuser")
+        ).newuser;
+        console.log(NewUser);
+        dispatch(
+          setnewUser({
+            name: checkUser,
+          })
+        );
+        dispatch(
+          setifnewUser({
+            isNewUser: NewUser,
+          })
+        );
+      } else {
+        history.push("/");
+      }
+    });
+  }, []);
   return (
     <Container>
       {newUser == true ? (
@@ -35,7 +54,6 @@ function Home() {
           <Banner_left>
             <ReactPlayer
               url="https://www.youtube.com/watch?v=qdpXxGPqW-Y"
-              controls="true"
               className="react-player"
               width="100%"
               playing={playing}
@@ -53,7 +71,7 @@ function Home() {
             <h2>
               <span>Us</span>
             </h2>
-            <Button onClick={() => setplaying(true)}>
+            <Button onClick={() => setplaying(!playing)}>
               Click on the video to learn more
             </Button>
           </Banner_right>

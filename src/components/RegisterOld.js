@@ -27,7 +27,8 @@ function RegisterOld() {
       // Handle Errors here.
       //console.log(error);
       //});
-      auth
+      firebase
+        .auth()
         .createUserWithEmailAndPassword(Values.Email, Values.password)
         .then((result) => {
           console.log(result);

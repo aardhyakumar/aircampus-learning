@@ -10,7 +10,9 @@ const firebaseConfig = {
 };
 const firebaseapp = firebase.initializeApp(firebaseConfig);
 const db = firebaseapp.firestore();
-const auth = firebase.auth();
+const auth = firebase
+  .auth()
+  .setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 const provider = new firebase.auth.GoogleAuthProvider();
 const storage = firebase.storage();
 const dbRef = firebase.database().ref();

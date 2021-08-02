@@ -15,6 +15,7 @@ import {
   selectUserPhoto,
   setSignOutState,
   setUserLoginDetails,
+  selectisNewUser,
   setnewUser,
   selectUserPassword,
 } from "../features/user/userSlice";
@@ -24,11 +25,15 @@ function Header() {
   const history = useHistory();
   const userPhoto = useSelector(selectUserPhoto);
   const useremail = useSelector(selectUserEmail);
-
+  const newUser = useSelector(selectisNewUser);
+  console.log(newUser);
   const logout = () => {
-    auth.signOut().then(() => {
-      history.push("/");
-    });
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        history.push("/");
+      });
   };
   const password = useSelector(selectUserPassword);
   useEffect(() => {
@@ -39,6 +44,11 @@ function Header() {
     currentUserQuery.on("value", function (snapshot) {
       snapshot.forEach((data) => {
         var userName = data.val().fullName;
+        const person = {
+          name: userName,
+        };
+        console.log(person);
+        window.localStorage.setItem("user", JSON.stringify(person));
         dispatch(
           setnewUser({
             name: userName,
@@ -46,7 +56,7 @@ function Header() {
         );
       });
     });
-  }, [password]);
+  }, []);
 
   const Name = useSelector(selectUserName);
   return (

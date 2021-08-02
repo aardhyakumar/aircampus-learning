@@ -16,6 +16,7 @@ const userSlice = createSlice({
       [...state, (state.name = action.payload.name)];
     },
     setifnewUser: (state, action) => {
+      console.log(action);
       [...state, (state.isNewUser = action.payload.isNewUser)];
     },
     setUserLoginDetails: (state, action) => {

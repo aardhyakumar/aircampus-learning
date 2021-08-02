@@ -20,6 +20,18 @@ function Login() {
   const dispatch = useDispatch();
   const [password, setPassword] = useState("");
   const history = useHistory();
+  //const history = useHistory();
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        console.log(user);
+        //window.location.href = "/home";
+        history.push("/home");
+      } else {
+        history.push("/");
+      }
+    });
+  }, []);
   const SignIn = (e) => {
     e.preventDefault();
     firebase
@@ -38,6 +50,10 @@ function Login() {
             dispatch(
               setifnewUser({ isNewUser: result.additionalUserInfo.isNewUser })
             );
+            const newuser = {
+              newuser: result.additionalUserInfo.isNewUser,
+            };
+            window.localStorage.setItem("newuser", JSON.stringify(newuser));
             setUser(result.user);
             history.push("/home");
           });

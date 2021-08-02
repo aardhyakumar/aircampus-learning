@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header";
 import firebase from "firebase/app";
@@ -17,7 +18,6 @@ import { auth, provider } from "./firebase.js";
 import Home from "./components/Home";
 import Course from "./components/Course";
 function App() {
-  const history = useHistory();
   return (
     <div className="App">
       <Router>
@@ -30,7 +30,7 @@ function App() {
             <Headersi />
             <RegisterBody />
           </Route>
-          <Route path="/home">
+          <Route exact path="/home">
             <Header />
             <Home />
             <Course />
