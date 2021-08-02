@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ReactPlayer from "react-player";
 import { useSelector } from "react-redux";
@@ -13,10 +13,21 @@ import {
   selectisNewUser,
 } from "../features/user/userSlice";
 import { auth, dbRef, provider } from "../firebase.js";
+import { useHistory } from "react-router";
 function Home() {
   const newUser = useSelector(selectisNewUser);
   const user = useSelector(selectUserName);
-  console.log(newUser);
+  const [playing, setplaying] = useState(false);
+  const email = useSelector(selectUserEmail);
+  const history = useHistory();
+  useEffect(() => {
+    if (email) {
+      console.log(user);
+      history.push("/home");
+    } else {
+      history.push("/");
+    }
+  }, [email]);
   return (
     <Container>
       {newUser == true ? (
@@ -27,6 +38,7 @@ function Home() {
               controls="true"
               className="react-player"
               width="100%"
+              playing={playing}
               height="100%"
               playsinline="true"
             />
@@ -41,7 +53,9 @@ function Home() {
             <h2>
               <span>Us</span>
             </h2>
-            <Button>Click on the video to learn more</Button>
+            <Button onClick={() => setplaying(true)}>
+              Click on the video to learn more
+            </Button>
           </Banner_right>
         </Banner>
       ) : (
@@ -67,7 +81,7 @@ const Container = styled.nav`
   padding: 40px;
   right: 0;
   bottom: 0;
-  height: 110vh;
+  min-height: 60vw;
 `;
 const Banner = styled.div`
   position: relative;

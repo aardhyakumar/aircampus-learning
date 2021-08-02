@@ -5,7 +5,7 @@ const initialState = {
   email: "",
   photo: "",
   password: "",
-  isNewUser: "",
+  isNewUser: true,
 };
 
 const userSlice = createSlice({
@@ -24,6 +24,7 @@ const userSlice = createSlice({
       state.email = action.payload.email;
       state.photo = action.payload.photo;
       state.password = action.payload.password;
+      state.isNewUser = action.payload.isNewUser;
     },
     setSignOutState: (state) => {
       state.name = null;

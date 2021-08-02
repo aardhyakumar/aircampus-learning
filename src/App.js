@@ -15,6 +15,7 @@ import ForgotPassword from "./components/ForgotPassword";
 import { useEffect } from "react";
 import { auth, provider } from "./firebase.js";
 import Home from "./components/Home";
+import Course from "./components/Course";
 function App() {
   const history = useHistory();
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/home">
             <Header />
             <Home />
+            <Course />
           </Route>
           <Route path="/passwordreset">
             <Headersi />

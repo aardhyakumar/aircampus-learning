@@ -31,12 +31,14 @@ function RegisterOld() {
         .createUserWithEmailAndPassword(Values.Email, Values.password)
         .then((result) => {
           console.log(result);
-          dbRef.child("user").push(Values);
+
           if (result) {
+            dbRef.child("user").push(Values);
+            setUser(result.user);
+
             dispatch(
               setifnewUser({ isNewUser: result.additionalUserInfo.isNewUser })
             );
-            setUser(result.user);
             history.push("/home");
           }
         })

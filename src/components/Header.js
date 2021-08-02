@@ -70,7 +70,7 @@ function Header() {
         </a>
       </NavMenu>
       <InfoBox>
-        <p className="welcome">Hello..</p>
+        <p className="welcome">Hello</p>
         <p>{Name}</p>
       </InfoBox>
 
@@ -251,6 +251,6 @@ const InfoBox = styled.div`
     color: #f9f9f9;
     left: 1vw;
     margin: 0;
-    border-top: 1px solid white;
+    border-top: 2px solid #ef6603;
   }
 `;
