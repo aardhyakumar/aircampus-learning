@@ -36,7 +36,10 @@ function RegisterOld() {
           if (result) {
             dbRef.child("user").push(Values);
             setUser(result.user);
-
+            const newuser = {
+              newuser: result.additionalUserInfo.isNewUser,
+            };
+            window.localStorage.setItem("newuser", JSON.stringify(newuser));
             dispatch(
               setifnewUser({ isNewUser: result.additionalUserInfo.isNewUser })
             );

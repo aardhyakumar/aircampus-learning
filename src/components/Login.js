@@ -53,6 +53,7 @@ function Login() {
             const newuser = {
               newuser: result.additionalUserInfo.isNewUser,
             };
+            console.log(newuser);
             window.localStorage.setItem("newuser", JSON.stringify(newuser));
             setUser(result.user);
             history.push("/home");

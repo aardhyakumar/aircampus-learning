@@ -116,11 +116,10 @@ const Banner = styled.div`
 const BannerOld = styled.div`
   position: relative;
   left: 0;
-  background: #444444;
   font-family: "Montserrat", sans-serif;
   padding: 40px;
   right: 0;
-  top: 90px;
+  top: 120px;
   bottom: 0;
   height: 35vw;
   box-shadow: 5px 5px 60px #444444;
@@ -197,13 +196,12 @@ const Button = styled.a`
 const WELCOME = styled.div`
   position: absolute;
   left: 0;
-  background: black;
+  background: #2a2c39;
   top: 0;
   font-family: "Montserrat", sans-serif;
   right: 0;
   margin: 0 0.2vw;
   height: 35vw;
-  box-shadow: 5px 5px 60px #444444;
 `;
 const Box = styled.div`
   position: relative;
