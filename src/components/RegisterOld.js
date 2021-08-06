@@ -34,6 +34,9 @@ function RegisterOld() {
           console.log(result);
 
           if (result) {
+            const uid = result.user.uid;
+            const pair = { uid: uid };
+            Values = { ...Values, ...pair };
             dbRef.child("user").push(Values);
             setUser(result.user);
             const newuser = {
@@ -69,7 +72,7 @@ function RegisterOld() {
     Email: "",
     password: "",
   };
-  const [Values, setValues] = useState(InitialFieldValues);
+  var [Values, setValues] = useState(InitialFieldValues);
   const handleInputChange = (e) => {
     var { name, value } = e.target;
     setValues({

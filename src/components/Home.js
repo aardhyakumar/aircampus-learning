@@ -110,7 +110,7 @@ const Banner = styled.div`
   right: 0;
   top: 90px;
   bottom: 0;
-  height: 70vh;
+  height: 80vh;
   box-shadow: 5px 5px 60px #444444;
 `;
 const BannerOld = styled.div`

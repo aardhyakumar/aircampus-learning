@@ -1,0 +1,16 @@
+.main-footer {
+  color: white;
+  background-color: #14151c;
+  opacity: 0.9;
+  height: 30vh;
+  padding: 30px;
+  text-align: center;
+  width: 100%;
+}
+.main-footer > img {
+  text-align: center;
+  display: inline;
+}
+.row > p {
+  text-align: center;
+}

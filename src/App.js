@@ -17,6 +17,7 @@ import { useEffect } from "react";
 import { auth, provider } from "./firebase.js";
 import Home from "./components/Home";
 import Course from "./components/Course";
+import Footer from "./components/Footer";
 function App() {
   return (
     <div className="App">
@@ -34,6 +35,7 @@ function App() {
             <Header />
             <Home />
             <Course />
+            <Footer />
           </Route>
           <Route path="/passwordreset">
             <Headersi />
