@@ -21,7 +21,7 @@ import {
   selectUserPassword,
 } from "../features/user/userSlice";
 import { useSelector } from "react-redux";
-function Header() {
+function HeaderEnroll() {
   const dispatch = useDispatch();
   const history = useHistory();
   const userPhoto = useSelector(selectUserPhoto);
@@ -36,30 +36,12 @@ function Header() {
         history.push("/");
       });
   };
-  const uid = useSelector(selectisUserUid);
+  var checkUser = useSelector(selectUserName);
+  const [User, setUser] = useState("");
   useEffect(() => {
-    const refUserInformation = firebase.database().ref("user");
-    const currentUserQuery = refUserInformation
-      .orderByChild("uid")
-      .equalTo(uid);
-    currentUserQuery.on("value", function (snapshot) {
-      snapshot.forEach((data) => {
-        var userName = data.val().fullName;
-        const person = {
-          name: userName,
-        };
-        console.log(person);
-        window.localStorage.setItem("user", JSON.stringify(person));
-        dispatch(
-          setnewUser({
-            name: userName,
-          })
-        );
-      });
-    });
+    setUser(JSON.parse(window.localStorage.getItem("user")).name);
+    console.log(checkUser);
   }, []);
-
-  const Name = useSelector(selectUserName);
   return (
     <Container>
       <Link to="/home">
@@ -82,7 +64,7 @@ function Header() {
       </NavMenu>
       <InfoBox>
         <p className="welcome">Hello</p>
-        <p>{Name}</p>
+        <p>{checkUser ? checkUser : User}</p>
       </InfoBox>
 
       {userPhoto ? (
@@ -97,7 +79,7 @@ function Header() {
   );
 }
 
-export default Header;
+export default HeaderEnroll;
 const Container = styled.nav`
   position: fixed;
   top: 0;

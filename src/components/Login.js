@@ -72,6 +72,7 @@ function Login() {
         email: user.email,
         photo: user.photoURL,
         password: password,
+        uid: user.uid,
       })
     );
   };

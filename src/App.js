@@ -1,7 +1,9 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
+import HeaderEnroll from "./components/HeaderEnroll";
 import "./App.css";
 import Header from "./components/Header";
+import Register from "./components/Register";
 import firebase from "firebase/app";
 import {
   BrowserRouter as Router,
@@ -40,6 +42,10 @@ function App() {
           <Route path="/passwordreset">
             <Headersi />
             <ForgotPassword />
+          </Route>
+          <Route path="/Enroll">
+            <HeaderEnroll />
+            <Register />
           </Route>
         </Switch>
       </Router>

@@ -1,6 +1,6 @@
 import React from "react";
 import "./card-style.css";
-
+import { Link } from "react-router-dom";
 function Card(props) {
   return (
     <div className="card">
@@ -11,7 +11,9 @@ function Card(props) {
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere esse
           natus dolore placeat neque quisquam dolor cumque animi est vitae!
         </p>
-        <button className="card__btn">Enroll Now</button>
+        <Link to="/Enroll">
+          <button className="card__btn">Enroll Now</button>
+        </Link>
       </div>
     </div>
   );
