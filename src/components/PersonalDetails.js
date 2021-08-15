@@ -12,7 +12,7 @@ import { auth, dbRef, provider } from "../firebase.js";
 import React from "react";
 import { setUserLoginDetails, setifnewUser } from "../features/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-function RegisterOld() {
+function PersonalDetails() {
   const history = useHistory();
   const dispatch = useDispatch();
   const [alert, setalert] = useState("");
@@ -91,6 +91,7 @@ function RegisterOld() {
       <form className="form" id="login">
         <img src="/images/new-user.png" />
         <h1 className="form__title">Register Now</h1>
+        <h2 className="personal_det">Personal Details</h2>
         <div className="form">
           <input
             type="text"
@@ -101,6 +102,7 @@ function RegisterOld() {
             value={Values.FullName}
             onChange={handleInputChange}
           />
+          <div className="form__input-error-message"></div>
 
           <input
             type="text"
@@ -111,8 +113,23 @@ function RegisterOld() {
             value={Values.Email}
             onChange={handleInputChange}
           />
-          <div className="form__input-error-message"></div>
-
+          <input
+            type="number"
+            className="form__input"
+            autofocus
+            min="0"
+            name="WhatsappNumber"
+            placeholder="Enter your Whatsapp Number"
+            value={Values.WhatsappNumber}
+            onChange={handleInputChange}
+          />
+          <DatePicker
+            //selected={DOB}
+            //onChange={(date) => setDOB(date)}
+            name="DOB"
+            className="dt"
+            placeholderText="Select your Date of Birth"
+          />
           <input
             type="password"
             class="form__input"
@@ -122,10 +139,27 @@ function RegisterOld() {
             value={Values.password}
             onChange={handleInputChange}
           />
-          <div className="form__input-error-message"></div>
+          <input
+            type="password"
+            class="form__input"
+            autofocus
+            name="confirmpassword"
+            placeholder="Confirm Password"
+            value={Values.password}
+            onChange={handleInputChange}
+          />
+          <input
+            type="text"
+            class="form__input"
+            autofocus
+            placeholder="Enter City"
+            name="City"
+            value={Values.City}
+            onChange={handleInputChange}
+          />
         </div>
         <button className="form__button" type="submit" onClick={register}>
-          Sign Up
+          Next
         </button>
         <p className="form__text">
           <a className="form__link" href="/" id="linkCreateAccount">
@@ -139,4 +173,4 @@ function RegisterOld() {
   );
 }
 
-export default RegisterOld;
+export default PersonalDetails;

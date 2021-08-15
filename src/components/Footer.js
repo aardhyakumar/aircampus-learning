@@ -1,11 +1,11 @@
 import React from "react";
-import "./Footer.css";
+import "../css/Footer.css";
 
 function Footer() {
   return (
     <div className="main-footer">
       <img src="/images/logo-white.png" />
-      <div className="row">
+      <div className="">
         <p className="footer-body">
           A meaningful alternative to conventional college that you wish existed
         </p>

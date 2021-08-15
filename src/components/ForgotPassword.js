@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import "./Login.css";
+import "../css/Login.css";
 import firebase from "firebase/app";
 import "firebase/auth";
 import { useHistory } from "react-router";

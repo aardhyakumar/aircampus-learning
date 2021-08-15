@@ -1,0 +1,40 @@
+.header {
+  border-bottom: 2px solid #4aa0d8;
+  background-color: rgba(17, 165, 169, 0.5);
+}
+
+.header li a {
+  text-decoration: none;
+  color: white;
+}
+li a:hover {
+  text-decoration: none;
+  color: yellow;
+  font-weight: 700;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+.cont {
+  padding: 40px 40px;
+}
+.cont > p {
+  font-size: 2vw;
+}
+.center {
+  margin-top: 5%;
+  margin-bottom: 5%;
+  position: relative;
+  top: 50%;
+  left: 45%;
+  font-size: 2vw;
+}
+.big {
+  position: relative;
+  top: 100px;
+}

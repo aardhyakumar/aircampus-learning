@@ -1,8 +1,9 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 import HeaderEnroll from "./components/HeaderEnroll";
-import "./App.css";
+import "./css/App.css";
 import Header from "./components/Header";
+import EnrollMain from "./components/EnrollMain";
 import Register from "./components/Register";
 import firebase from "firebase/app";
 import {
@@ -20,6 +21,7 @@ import { auth, provider } from "./firebase.js";
 import Home from "./components/Home";
 import Course from "./components/Course";
 import Footer from "./components/Footer";
+import AcademicDetails from "./components/AcademicDetails";
 function App() {
   return (
     <div className="App">
@@ -31,7 +33,7 @@ function App() {
           </Route>
           <Route path="/register">
             <Headersi />
-            <RegisterBody />
+            <AcademicDetails />
           </Route>
           <Route exact path="/home">
             <Header />
@@ -45,7 +47,7 @@ function App() {
           </Route>
           <Route path="/Enroll">
             <HeaderEnroll />
-            <Register />
+            <EnrollMain />
           </Route>
         </Switch>
       </Router>

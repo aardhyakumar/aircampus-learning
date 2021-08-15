@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
+import PersonalDetails from "./PersonalDetails.js";
 import Register from "./Register.js";
 import RegisterOld from "./RegisterOld.js";
 function RegisterBody() {
   return (
     <Container>
-      <RegisterOld />
+      <PersonalDetails />
     </Container>
   );
 }
@@ -18,5 +19,5 @@ const Container = styled.nav`
   padding: 40px;
   right: 0;
   bottom: 0;
-  height: 140vh;
+  height: 160vh;
 `;
