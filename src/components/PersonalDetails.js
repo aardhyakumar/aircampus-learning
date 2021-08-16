@@ -12,73 +12,100 @@ import { auth, dbRef, provider } from "../firebase.js";
 import React from "react";
 import { setUserLoginDetails, setifnewUser } from "../features/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  setPersonalDetails,
+  selectUserDOB,
+  selectUserEmail,
+  selectisUserUid,
+  selectWhatsappNumber,
+  selectfullName,
+  selectCity,
+} from "../features/userRegister.js/userRegisterSlice";
 function PersonalDetails() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const [alert, setalert] = useState("");
-  const [name, setname] = useState(false);
+  const [DOB, setDOB] = useState("");
+  const [alert, setalert] = useState(false);
+  const [custom, setcustom] = useState(false);
+  const [pssword, setpssword] = useState(false);
+  const user = useSelector(selectfullName);
+  const Dob = useSelector(selectUserDOB);
+  const email = useSelector(selectUserEmail);
+  const Number = useSelector(selectWhatsappNumber);
+  const City = useSelector(selectCity);
   const register = (e) => {
     e.preventDefault();
-    //some firebse shitttt
-    console.log(Values.fullName);
-    if (Values.fullName !== "") {
-      setname(false);
+    const pair = { DOB: DOB };
+    Values = { ...Values, ...pair };
 
-      //.catch((error) => {
-      // Handle Errors here.
-      //console.log(error);
-      //});
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(Values.Email, Values.password)
-        .then((result) => {
-          if (result) {
-            const uid = result.user.uid;
-            const pair = { uid: uid };
-            Values = { ...Values, ...pair };
-            axios.post("http://localhost:9002/register", Values).then((res) => {
-              if (res.data == "Successfully Registered") {
-                setUser(result.user);
-                const newuser = {
-                  newuser: result.additionalUserInfo.isNewUser,
-                };
-                window.localStorage.setItem("newuser", JSON.stringify(newuser));
-                dispatch(
-                  setifnewUser({
-                    isNewUser: result.additionalUserInfo.isNewUser,
-                  })
-                );
-                history.push("/home");
-              } else {
-                history.push("/register");
-              }
-            });
-          }
-        })
-        .catch((error) => {
-          //Handle Errors here.
-          setalert(error.message);
-        });
+    //some firebse shitttt
+    if (
+      Values.fullName &&
+      Values.City &&
+      Values.WhatsappNumber &&
+      Values.password &&
+      Values.confirmpassword &&
+      Values.DOB
+    ) {
+      setcustom(false);
+      if (Values.password === Values.confirmpassword) {
+        setpssword(false);
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(Values.Email, Values.password)
+          .then((result) => {
+            if (result) {
+              const uid = result.user.uid;
+              const pair = { uid: uid };
+              Values = { ...Values, ...pair };
+              dispatch(
+                setPersonalDetails({
+                  fullName: Values.fullName,
+                  Email: Values.Email,
+                  WhatsappNumber: Values.WhatsappNumber,
+                  DOB: Values.DOB,
+                  City: Values.City,
+                  uid: Values.uid,
+                })
+              );
+
+              console.log(user);
+              history.push("/AcademicDetails");
+            }
+          })
+          .catch((error) => {
+            //Handle Errors here.
+            setalert(error.message);
+          });
+      } else {
+        setpssword(true);
+      }
     } else {
-      setname(true);
+      setcustom(true);
     }
-  };
-  const setUser = (user) => {
-    dispatch(
-      setUserLoginDetails({
-        name: user.displayName,
-        email: user.email,
-        photo: user.photoURL,
-        password: Values.password,
-      })
-    );
   };
   const InitialFieldValues = {
     fullName: "",
     Email: "",
     password: "",
+    WhatsappNumber: "",
+    confirmpassword: "",
+    City: "",
   };
   var [Values, setValues] = useState(InitialFieldValues);
+  if (
+    user !== "" &&
+    email !== "" &&
+    Number !== "" &&
+    City != "" &&
+    Dob !== ""
+  ) {
+    Values.fullName = user;
+    Values.Email = email;
+    Values.WhatsappNumber = Number;
+    Values.City = City;
+    Values.DOB = Dob;
+  }
   const handleInputChange = (e) => {
     var { name, value } = e.target;
     setValues({
@@ -99,7 +126,7 @@ function PersonalDetails() {
             autofocus
             placeholder="FullName"
             name="fullName"
-            value={Values.FullName}
+            value={Values.fullName}
             onChange={handleInputChange}
           />
           <div className="form__input-error-message"></div>
@@ -124,8 +151,8 @@ function PersonalDetails() {
             onChange={handleInputChange}
           />
           <DatePicker
-            //selected={DOB}
-            //onChange={(date) => setDOB(date)}
+            selected={DOB}
+            onChange={(date) => setDOB(date)}
             name="DOB"
             className="dt"
             placeholderText="Select your Date of Birth"
@@ -145,7 +172,7 @@ function PersonalDetails() {
             autofocus
             name="confirmpassword"
             placeholder="Confirm Password"
-            value={Values.password}
+            value={Values.confirmpassword}
             onChange={handleInputChange}
           />
           <input
@@ -168,7 +195,8 @@ function PersonalDetails() {
         </p>
       </form>
       {alert && <h3 className="alert">{alert}</h3>}
-      {name && <h3 className="alert">Please Enter your name</h3>}
+      {custom && <h3 className="alert">Please Enter Complete Login Details</h3>}
+      {pssword && <h3 className="alert">Both Passwords should Match</h3>}
     </div>
   );
 }

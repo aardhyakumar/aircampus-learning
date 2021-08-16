@@ -33,6 +33,10 @@ function App() {
           </Route>
           <Route path="/register">
             <Headersi />
+            <RegisterBody />
+          </Route>
+          <Route path="/AcademicDetails">
+            <Headersi />
             <AcademicDetails />
           </Route>
           <Route exact path="/home">

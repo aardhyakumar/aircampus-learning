@@ -21,74 +21,101 @@ function AcademicDetails() {
   const [Grad, setGrad] = useState(false);
   const [employed, setemployed] = useState(false);
   const [College, setCollege] = useState(false);
+  const [Completion, setCompletion] = useState("");
   const [name, setname] = useState(false);
   const handleChange = () => {
     // Change state to the opposite (to ture) when checkbox changes
     setCollege(!College);
+    console.log();
   };
   const register = (e) => {
     e.preventDefault();
     //some firebse shitttt
-    console.log(Values.fullName);
-    if (Values.fullName !== "") {
-      setname(false);
-
-      //.catch((error) => {
-      // Handle Errors here.
-      //console.log(error);
-      //});
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(Values.Email, Values.password)
-        .then((result) => {
-          if (result) {
-            const uid = result.user.uid;
-            const pair = { uid: uid };
-            Values = { ...Values, ...pair };
-            axios.post("http://localhost:9002/register", Values).then((res) => {
-              if (res.data == "Successfully Registered") {
-                setUser(result.user);
-                const newuser = {
-                  newuser: result.additionalUserInfo.isNewUser,
-                };
-                window.localStorage.setItem("newuser", JSON.stringify(newuser));
-                dispatch(
-                  setifnewUser({
-                    isNewUser: result.additionalUserInfo.isNewUser,
-                  })
-                );
-                history.push("/home");
-              } else {
-                history.push("/register");
-              }
-            });
-          }
-        })
-        .catch((error) => {
-          //Handle Errors here.
-          setalert(error.message);
-        });
+    if (College == true && Grad == true && employed == true) {
+      if (
+        Values.CollegeYear !== "" &&
+        Values.CompletionYear !== "" &&
+        Values.Course !== "" &&
+        Values.Branch !== "" &&
+        Values.Salary !== ""
+      ) {
+        console.log(Values);
+        setalert(false);
+      } else {
+        setalert(true);
+      }
+    } else if (College == false && Grad == true && employed == true) {
+      if (
+        Values.CompletionYear !== "" &&
+        Values.Course !== "" &&
+        Values.Branch !== "" &&
+        Values.Salary !== ""
+      ) {
+        console.log(Values);
+        setalert(false);
+      } else {
+        setname(true);
+      }
+    } else if (College == true && Grad == false && employed == true) {
+      if (Values.CollegeYear !== "" && Values.Salary !== "") {
+        console.log(Values);
+      } else {
+        setalert(true);
+        setalert(false);
+      }
+    } else if (College == true && Grad == true && employed == false) {
+      if (
+        Values.CollegeYear !== "" &&
+        Values.CompletionYear !== "" &&
+        Values.Course !== "" &&
+        Values.Branch !== ""
+      ) {
+        console.log(Values);
+        setalert(false);
+      } else {
+        setname(true);
+      }
+    } else if (College == false && Grad == false && employed == true) {
+      if (Values.Salary !== "") {
+        console.log(Values);
+        setalert(false);
+      } else {
+        setalert(true);
+      }
+    } else if (College == true && Grad == false && employed == false) {
+      if (Values.CollegeYear !== "") {
+        console.log(Values);
+        setalert(false);
+      } else {
+        setalert(true);
+      }
+    } else if (College == false && Grad == true && employed == false) {
+      if (
+        Values.CompletionYear !== "" &&
+        Values.Course !== "" &&
+        Values.Branch !== ""
+      ) {
+        setalert(false);
+        console.log(Values);
+      } else {
+        setalert(true);
+      }
     } else {
-      setname(true);
+      console.log(Values);
+      setalert(false);
     }
   };
-  const setUser = (user) => {
-    dispatch(
-      setUserLoginDetails({
-        name: user.displayName,
-        email: user.email,
-        photo: user.photoURL,
-        password: Values.password,
-      })
-    );
-  };
+
   const InitialFieldValues = {
-    fullName: "",
-    Email: "",
-    password: "",
+    CollegeYear: "",
+    CompletionYear: "",
+    Course: "",
+    Branch: "",
+    Salary: "",
   };
   var [Values, setValues] = useState(InitialFieldValues);
   const handleInputChange = (e) => {
+    e.preventDefault();
     var { name, value } = e.target;
     setValues({
       ...Values,
@@ -102,8 +129,8 @@ function AcademicDetails() {
           <h2 className="personal_det">Academic Details</h2>
           <div className="form">
             <DatePicker
-              //selected={Completion}
-              //onChange={(date) => setCompletion(date)}
+              selected={Completion}
+              onChange={(date) => setCompletion(date)}
               placeholderText="12th Completion Year"
               showYearPicker
               name="CompletionYear"
@@ -119,6 +146,7 @@ function AcademicDetails() {
                 checked={College}
                 onChange={handleChange}
                 placeholder="Yes"
+                value="yes"
                 className="input_check"
               />
               Yes
@@ -126,6 +154,7 @@ function AcademicDetails() {
                 type="checkbox"
                 placeholder="No"
                 className="input_check"
+                value="no"
                 onChange={() => {
                   setCollege(false);
                 }}
@@ -138,10 +167,10 @@ function AcademicDetails() {
                   type="number"
                   class="form__input"
                   autofocus
+                  name="CollegeYear"
                   placeholder="Enter Year"
-                  name="City"
-                  //value={Values.City}
-                  //onChange={handleInputChange}
+                  value={Values.CollegeYear}
+                  onChange={handleInputChange}
                 />
               </div>
             )}
@@ -173,28 +202,28 @@ function AcademicDetails() {
                   type="number"
                   class="form__input"
                   autofocus
-                  placeholder="Enter Year"
-                  name="City"
-                  //value={Values.City}
-                  //onChange={handleInputChange}
+                  placeholder="Enter Completion Year"
+                  name="CompletionYear"
+                  value={Values.CompletionYear}
+                  onChange={handleInputChange}
                 />
                 <input
                   type="text"
                   class="form__input"
                   autofocus
                   placeholder="Enter Course"
-                  name="City"
-                  //value={Values.City}
-                  //onChange={handleInputChange}
+                  name="Course"
+                  value={Values.Course}
+                  onChange={handleInputChange}
                 />
                 <input
                   type="text"
                   class="form__input"
                   autofocus
                   placeholder="Enter Branch"
-                  name="City"
-                  //value={Values.City}
-                  //onChange={handleInputChange}
+                  name="Branch"
+                  value={Values.Branch}
+                  onChange={handleInputChange}
                 />
               </div>
             )}
@@ -227,19 +256,28 @@ function AcademicDetails() {
                   class="form__input"
                   autofocus
                   placeholder="Enter CTC"
-                  name="City"
-                  //value={Values.City}
-                  //onChange={handleInputChange}
+                  name="Salary"
+                  value={Values.Salary}
+                  onChange={handleInputChange}
                 />
               </div>
             )}
+            <button
+              className="form__button"
+              type="submit"
+              onClick={() => {
+                history.push("/register");
+              }}
+            >
+              Go Back
+            </button>
             <button className="form__button" type="submit" onClick={register}>
               Next
             </button>
           </div>
         </form>
-        {alert && <h3 className="alert">{alert}</h3>}
-        {name && <h3 className="alert">Please Enter your name</h3>}
+        {alert && <h3 className="alert">Please Enter your name</h3>}
+        {name && <h3 className="alert">Please Enter </h3>}
       </div>
     </Container>
   );
@@ -253,5 +291,5 @@ const Container = styled.nav`
   padding: 40px;
   right: 0;
   bottom: 0;
-  height: 160vh;
+  height: 200vh;
 `;

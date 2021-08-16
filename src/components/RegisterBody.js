@@ -19,5 +19,5 @@ const Container = styled.nav`
   padding: 40px;
   right: 0;
   bottom: 0;
-  height: 160vh;
+  min-height: 180vh;
 `;
