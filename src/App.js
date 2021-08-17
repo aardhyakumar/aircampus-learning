@@ -22,6 +22,7 @@ import Home from "./components/Home";
 import Course from "./components/Course";
 import Footer from "./components/Footer";
 import AcademicDetails from "./components/AcademicDetails";
+import Courses from "./components/Courses";
 function App() {
   return (
     <div className="App">
@@ -38,6 +39,10 @@ function App() {
           <Route path="/AcademicDetails">
             <Headersi />
             <AcademicDetails />
+          </Route>
+          <Route path="/CoursesSelection">
+            <Headersi />
+            <Courses />
           </Route>
           <Route exact path="/home">
             <Header />

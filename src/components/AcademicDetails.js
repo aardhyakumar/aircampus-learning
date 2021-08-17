@@ -14,106 +14,326 @@ import React from "react";
 import { setUserLoginDetails, setifnewUser } from "../features/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { FlareSharp } from "@material-ui/icons";
+
+import {
+  setAcademicDetails,
+  selectPersonalDetailsDone,
+  selectAcademicDetailsDone,
+  selectifEmployed,
+  selectifStillInCollege,
+  selectBranch,
+  selectCourse,
+  selectCompletionYear,
+  selectCollegeYear,
+  selectGraduate,
+  selectSalary,
+  selectInterCompletionYear,
+} from "../features/userRegister.js/userRegisterSlice";
 function AcademicDetails() {
   const history = useHistory();
   const dispatch = useDispatch();
   const [alert, setalert] = useState("");
-  const [Grad, setGrad] = useState(false);
-  const [employed, setemployed] = useState(false);
-  const [College, setCollege] = useState(false);
+  const [Gradtrue, setGradtrue] = useState(false);
+  const [Gradfalse, setGradfalse] = useState(false);
+  const [employedtrue, setemployedtrue] = useState(false);
+  const [employedfalse, setemployedfalse] = useState(false);
+  const [Collegetrue, setCollegetrue] = useState(false);
+  const [Collegefalse, setCollegefalse] = useState(false);
   const [Completion, setCompletion] = useState("");
-  const [name, setname] = useState(false);
-  const handleChange = () => {
-    // Change state to the opposite (to ture) when checkbox changes
-    setCollege(!College);
-    console.log();
-  };
+  const Details = useSelector(selectPersonalDetailsDone);
+  const ADetails = useSelector(selectAcademicDetailsDone);
+  const Inter = useSelector(selectInterCompletionYear);
+  const SIC = useSelector(selectifStillInCollege);
+  const CY = useSelector(selectCollegeYear);
+  // if (Details == false) {
+  //   history.push("/register");
+  // }
+
   const register = (e) => {
     e.preventDefault();
+    Values.InterCompletionYear = Completion;
     //some firebse shitttt
-    if (College == true && Grad == true && employed == true) {
-      if (
-        Values.CollegeYear !== "" &&
-        Values.CompletionYear !== "" &&
-        Values.Course !== "" &&
-        Values.Branch !== "" &&
-        Values.Salary !== ""
+    if (Values.InterCompletionYear !== "") {
+      setalert(false);
+      if (Collegetrue == true && Gradtrue == true && employedtrue == true) {
+        if (
+          Values.CollegeYear !== "" &&
+          Values.CompletionYear !== "" &&
+          Values.Course !== "" &&
+          Values.Branch !== "" &&
+          Values.Salary !== ""
+        ) {
+          Values.StillInCollege = "Yes";
+          Values.Graduate = "Yes";
+          Values.Employed = "Yes";
+          console.log(Values);
+          dispatch(
+            setAcademicDetails({
+              CollegeYear: Values.CollegeYear,
+              Graduate: Values.Graduate,
+              StillInCollege: Values.StillInCollege,
+              Employed: Values.Employed,
+              CompletionYear: Values.CompletionYear,
+              Course: Values.Course,
+              Branch: Values.Branch,
+              Salary: Values.Salary,
+              InterCompletionYear: Values.InterCompletionYear,
+              AcademicDetailsDone: true,
+            })
+          );
+          history.push("/CoursesSelection");
+          setalert(false);
+        } else {
+          setalert(true);
+        }
+      } else if (
+        Collegetrue == false &&
+        Gradtrue == true &&
+        employedtrue == true
       ) {
-        console.log(Values);
-        setalert(false);
-      } else {
-        setalert(true);
-      }
-    } else if (College == false && Grad == true && employed == true) {
-      if (
-        Values.CompletionYear !== "" &&
-        Values.Course !== "" &&
-        Values.Branch !== "" &&
-        Values.Salary !== ""
+        if (
+          Values.CompletionYear !== "" &&
+          Values.Course !== "" &&
+          Values.Branch !== "" &&
+          Values.Salary !== ""
+        ) {
+          Values.CollegeYear = "NA";
+          Values.StillInCollege = "No";
+          Values.Graduate = "Yes";
+          Values.Employed = "Yes";
+          console.log(Values);
+          dispatch(
+            setAcademicDetails({
+              CollegeYear: Values.CollegeYear,
+              Graduate: Values.Graduate,
+              StillInCollege: Values.StillInCollege,
+              Employed: Values.Employed,
+              CompletionYear: Values.CompletionYear,
+              Course: Values.Course,
+              Branch: Values.Branch,
+              Salary: Values.Salary,
+              InterCompletionYear: Values.InterCompletionYear,
+              AcademicDetailsDone: true,
+            })
+          );
+          history.push("/CoursesSelection");
+          setalert(false);
+        } else {
+          setalert(true);
+        }
+      } else if (
+        Collegetrue == true &&
+        Gradtrue == false &&
+        employedtrue == true
       ) {
-        console.log(Values);
-        setalert(false);
-      } else {
-        setname(true);
-      }
-    } else if (College == true && Grad == false && employed == true) {
-      if (Values.CollegeYear !== "" && Values.Salary !== "") {
-        console.log(Values);
-      } else {
-        setalert(true);
-        setalert(false);
-      }
-    } else if (College == true && Grad == true && employed == false) {
-      if (
-        Values.CollegeYear !== "" &&
-        Values.CompletionYear !== "" &&
-        Values.Course !== "" &&
-        Values.Branch !== ""
+        if (Values.CollegeYear !== "" && Values.Salary !== "") {
+          Values.CompletionYear = "NA";
+          Values.Course = "NA";
+          Values.Branch = "NA";
+          Values.StillInCollege = "Yes";
+          Values.Graduate = "No";
+          Values.Employed = "Yes";
+          setalert(false);
+          console.log(Values);
+          dispatch(
+            setAcademicDetails({
+              CollegeYear: Values.CollegeYear,
+              Graduate: Values.Graduate,
+              StillInCollege: Values.StillInCollege,
+              Employed: Values.Employed,
+              CompletionYear: Values.CompletionYear,
+              Course: Values.Course,
+              Branch: Values.Branch,
+              Salary: Values.Salary,
+              InterCompletionYear: Values.InterCompletionYear,
+              AcademicDetailsDone: true,
+            })
+          );
+          history.push("/CoursesSelection");
+        } else {
+          setalert(true);
+        }
+      } else if (
+        Collegetrue == true &&
+        Gradtrue == true &&
+        employedtrue == false
       ) {
-        console.log(Values);
-        setalert(false);
-      } else {
-        setname(true);
-      }
-    } else if (College == false && Grad == false && employed == true) {
-      if (Values.Salary !== "") {
-        console.log(Values);
-        setalert(false);
-      } else {
-        setalert(true);
-      }
-    } else if (College == true && Grad == false && employed == false) {
-      if (Values.CollegeYear !== "") {
-        console.log(Values);
-        setalert(false);
-      } else {
-        setalert(true);
-      }
-    } else if (College == false && Grad == true && employed == false) {
-      if (
-        Values.CompletionYear !== "" &&
-        Values.Course !== "" &&
-        Values.Branch !== ""
+        if (
+          Values.CollegeYear !== "" &&
+          Values.CompletionYear !== "" &&
+          Values.Course !== "" &&
+          Values.Branch !== ""
+        ) {
+          Values.Salary = "NA";
+          Values.StillInCollege = "Yes";
+          Values.Graduate = "Yes";
+          Values.Employed = "No";
+          console.log(Values);
+          dispatch(
+            setAcademicDetails({
+              CollegeYear: Values.CollegeYear,
+              Graduate: Values.Graduate,
+              StillInCollege: Values.StillInCollege,
+              Employed: Values.Employed,
+              CompletionYear: Values.CompletionYear,
+              Course: Values.Course,
+              Branch: Values.Branch,
+              Salary: Values.Salary,
+              InterCompletionYear: Values.InterCompletionYear,
+              AcademicDetailsDone: true,
+            })
+          );
+          history.push("/CoursesSelection");
+          setalert(false);
+        } else {
+          setalert(true);
+        }
+      } else if (
+        Collegetrue == false &&
+        Gradtrue == false &&
+        employedtrue == true
       ) {
-        setalert(false);
-        console.log(Values);
+        if (Values.Salary !== "") {
+          Values.CollegeYear = "NA";
+          Values.Course = "NA";
+          Values.CompletionYear = "NA";
+          Values.Branch = "NA";
+          Values.StillInCollege = "No";
+          Values.Graduate = "No";
+          Values.Employed = "Yes";
+          console.log(Values);
+          dispatch(
+            setAcademicDetails({
+              CollegeYear: Values.CollegeYear,
+              Graduate: Values.Graduate,
+              StillInCollege: Values.StillInCollege,
+              Employed: Values.Employed,
+              CompletionYear: Values.CompletionYear,
+              Course: Values.Course,
+              Branch: Values.Branch,
+              Salary: Values.Salary,
+              InterCompletionYear: Values.InterCompletionYear,
+              AcademicDetailsDone: true,
+            })
+          );
+          history.push("/CoursesSelection");
+          setalert(false);
+        } else {
+          setalert(true);
+        }
+      } else if (
+        Collegetrue == true &&
+        Gradtrue == false &&
+        employedtrue == false
+      ) {
+        if (Values.CollegeYear !== "") {
+          Values.Course = "NA";
+          Values.CompletionYear = "NA";
+          Values.Branch = "NA";
+          Values.Salary = "NA";
+          Values.StillInCollege = "Yes";
+          Values.Graduate = "No";
+          Values.Employed = "No";
+          console.log(Values);
+          dispatch(
+            setAcademicDetails({
+              CollegeYear: Values.CollegeYear,
+              Graduate: Values.Graduate,
+              StillInCollege: Values.StillInCollege,
+              Employed: Values.Employed,
+              CompletionYear: Values.CompletionYear,
+              Course: Values.Course,
+              Branch: Values.Branch,
+              Salary: Values.Salary,
+              InterCompletionYear: Values.InterCompletionYear,
+              AcademicDetailsDone: true,
+            })
+          );
+          history.push("/CoursesSelection");
+          setalert(false);
+        } else {
+          setalert(true);
+        }
+      } else if (
+        Collegetrue == false &&
+        Gradtrue == true &&
+        employedtrue == false
+      ) {
+        if (
+          Values.CompletionYear !== "" &&
+          Values.Course !== "" &&
+          Values.Branch !== ""
+        ) {
+          Values.CollegeYear = "NA";
+          Values.Salary = "NA";
+          Values.StillInCollege = "No";
+          Values.Graduate = "Yes";
+          Values.Employed = "No";
+          dispatch(
+            setAcademicDetails({
+              CollegeYear: Values.CollegeYear,
+              Graduate: Values.Graduate,
+              StillInCollege: Values.StillInCollege,
+              Employed: Values.Employed,
+              CompletionYear: Values.CompletionYear,
+              Course: Values.Course,
+              Branch: Values.Branch,
+              Salary: Values.Salary,
+              InterCompletionYear: Values.InterCompletionYear,
+              AcademicDetailsDone: true,
+            })
+          );
+          history.push("/CoursesSelection");
+          setalert(false);
+          console.log(Values);
+        } else {
+          setalert(true);
+        }
       } else {
-        setalert(true);
+        Values.CollegeYear = "NA";
+        Values.CompletionYear = "NA";
+        Values.Branch = "NA";
+        Values.Course = "NA";
+        Values.Salary = "NA";
+        Values.StillInCollege = "No";
+        Values.Graduate = "No";
+        Values.Employed = "No";
+        console.log(Values);
+        dispatch(
+          setAcademicDetails({
+            CollegeYear: Values.CollegeYear,
+            Graduate: Values.Graduate,
+            StillInCollege: Values.StillInCollege,
+            Employed: Values.Employed,
+            CompletionYear: Values.CompletionYear,
+            Course: Values.Course,
+            Branch: Values.Branch,
+            Salary: Values.Salary,
+            InterCompletionYear: Values.InterCompletionYear,
+            AcademicDetailsDone: true,
+          })
+        );
+        history.push("/CoursesSelection");
+        setalert(false);
       }
     } else {
-      console.log(Values);
-      setalert(false);
+      setalert(true);
     }
   };
 
   const InitialFieldValues = {
+    InterCompletionYear: "",
     CollegeYear: "",
+    Graduate: "",
+    StillInCollege: "",
+    Employed: "",
     CompletionYear: "",
     Course: "",
     Branch: "",
     Salary: "",
   };
   var [Values, setValues] = useState(InitialFieldValues);
+
   const handleInputChange = (e) => {
     e.preventDefault();
     var { name, value } = e.target;
@@ -122,6 +342,17 @@ function AcademicDetails() {
       [name]: value,
     });
   };
+  useEffect(() => {
+    if (ADetails == true) {
+      Values.InterCompletionYear = Inter;
+      if (SIC == "Yes") {
+        Values.CollegeYear = CY;
+        console.log(CY);
+        setCollegetrue(true);
+      }
+    }
+  }, []);
+
   return (
     <Container>
       <div className="container">
@@ -143,8 +374,11 @@ function AcademicDetails() {
             <label className="title_input">
               <input
                 type="checkbox"
-                checked={College}
-                onChange={handleChange}
+                checked={Collegetrue}
+                onChange={() => {
+                  setCollegetrue(true);
+                  setCollegefalse(false);
+                }}
                 placeholder="Yes"
                 value="yes"
                 className="input_check"
@@ -155,13 +389,15 @@ function AcademicDetails() {
                 placeholder="No"
                 className="input_check"
                 value="no"
+                checked={Collegefalse}
                 onChange={() => {
-                  setCollege(false);
+                  setCollegefalse(true);
+                  setCollegetrue(false);
                 }}
               />
               No
             </label>
-            {College && (
+            {Collegetrue && (
               <div className="college_list">
                 <input
                   type="number"
@@ -179,9 +415,10 @@ function AcademicDetails() {
               <input
                 className="input_check"
                 type="checkbox"
-                checked={Grad}
+                checked={Gradtrue}
                 onChange={() => {
-                  setGrad(!Grad);
+                  setGradtrue(true);
+                  setGradfalse(false);
                 }}
                 placeholder="Yes"
               />
@@ -190,13 +427,15 @@ function AcademicDetails() {
                 className="input_check"
                 type="checkbox"
                 placeholder="No"
+                checked={Gradfalse}
                 onChange={() => {
-                  setGrad(false);
+                  setGradtrue(false);
+                  setGradfalse(true);
                 }}
               />
               No
             </label>
-            {Grad && (
+            {Gradtrue && (
               <div className="G_list">
                 <input
                   type="number"
@@ -232,9 +471,10 @@ function AcademicDetails() {
               <input
                 className="input_check"
                 type="checkbox"
-                checked={employed}
+                checked={employedtrue}
                 onChange={() => {
-                  setemployed(!employed);
+                  setemployedtrue(true);
+                  setemployedfalse(false);
                 }}
                 placeholder="Yes"
               />
@@ -243,13 +483,15 @@ function AcademicDetails() {
                 className="input_check"
                 type="checkbox"
                 placeholder="No"
+                checked={employedfalse}
                 onChange={() => {
-                  setemployed(false);
+                  setemployedtrue(false);
+                  setemployedfalse(true);
                 }}
               />
               No
             </label>
-            {employed && (
+            {employedtrue && (
               <div className="employed_list">
                 <input
                   type="number"
@@ -276,8 +518,9 @@ function AcademicDetails() {
             </button>
           </div>
         </form>
-        {alert && <h3 className="alert">Please Enter your name</h3>}
-        {name && <h3 className="alert">Please Enter </h3>}
+        {alert && (
+          <h3 className="alert">Please Enter Complete Academic Details</h3>
+        )}
       </div>
     </Container>
   );

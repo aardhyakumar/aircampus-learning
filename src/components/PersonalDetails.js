@@ -16,7 +16,9 @@ import {
   setPersonalDetails,
   selectUserDOB,
   selectUserEmail,
-  selectisUserUid,
+  selectPersonalDetailsDone,
+  selectUserPassword,
+  selectUserConfirmPassword,
   selectWhatsappNumber,
   selectfullName,
   selectCity,
@@ -33,6 +35,9 @@ function PersonalDetails() {
   const email = useSelector(selectUserEmail);
   const Number = useSelector(selectWhatsappNumber);
   const City = useSelector(selectCity);
+  const password = useSelector(selectUserPassword);
+  const confirmpassword = useSelector(selectUserConfirmPassword);
+  const Details = useSelector(selectPersonalDetailsDone);
   const register = (e) => {
     e.preventDefault();
     const pair = { DOB: DOB };
@@ -50,33 +55,19 @@ function PersonalDetails() {
       setcustom(false);
       if (Values.password === Values.confirmpassword) {
         setpssword(false);
-        firebase
-          .auth()
-          .createUserWithEmailAndPassword(Values.Email, Values.password)
-          .then((result) => {
-            if (result) {
-              const uid = result.user.uid;
-              const pair = { uid: uid };
-              Values = { ...Values, ...pair };
-              dispatch(
-                setPersonalDetails({
-                  fullName: Values.fullName,
-                  Email: Values.Email,
-                  WhatsappNumber: Values.WhatsappNumber,
-                  DOB: Values.DOB,
-                  City: Values.City,
-                  uid: Values.uid,
-                })
-              );
-
-              console.log(user);
-              history.push("/AcademicDetails");
-            }
+        dispatch(
+          setPersonalDetails({
+            fullName: Values.fullName,
+            Email: Values.Email,
+            WhatsappNumber: Values.WhatsappNumber,
+            DOB: Values.DOB,
+            City: Values.City,
+            password: Values.password,
+            confirmpassword: Values.password,
+            PersonalDetailsDone: true,
           })
-          .catch((error) => {
-            //Handle Errors here.
-            setalert(error.message);
-          });
+        );
+        history.push("/AcademicDetails");
       } else {
         setpssword(true);
       }
@@ -93,18 +84,24 @@ function PersonalDetails() {
     City: "",
   };
   var [Values, setValues] = useState(InitialFieldValues);
-  if (
-    user !== "" &&
-    email !== "" &&
-    Number !== "" &&
-    City != "" &&
-    Dob !== ""
-  ) {
-    Values.fullName = user;
-    Values.Email = email;
-    Values.WhatsappNumber = Number;
-    Values.City = City;
-    Values.DOB = Dob;
+  if (Details == true) {
+    if (
+      user !== "" &&
+      email !== "" &&
+      Number !== "" &&
+      City != "" &&
+      Dob !== "" &&
+      password !== "" &&
+      confirmpassword !== ""
+    ) {
+      Values.fullName = user;
+      Values.Email = email;
+      Values.WhatsappNumber = Number;
+      Values.City = City;
+      Values.DOB = Dob;
+      Values.password = password;
+      Values.confirmpassword = confirmpassword;
+    }
   }
   const handleInputChange = (e) => {
     var { name, value } = e.target;
