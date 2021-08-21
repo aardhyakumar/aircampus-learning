@@ -14,10 +14,12 @@ const initialState = {
   InterCompletionYear: "",
   Employed: "",
   CompletionYear: "",
-  AcademicDetailsDone: "",
+  AcademicDetailsDone: false,
   Course: "",
   Branch: "",
   Salary: "",
+  CourseDetailsDone: false,
+  CourseSelected: "",
 };
 const userRegisterSlice = createSlice({
   name: "userRegister",
@@ -50,10 +52,17 @@ const userRegisterSlice = createSlice({
         (state.AcademicDetailsDone = action.payload.AcademicDetailsDone),
       ];
     },
+    setCourseDetails: (state, action) => {
+      [
+        ...state,
+        (state.CourseDetailsDone = action.payload.CourseDetailsDone),
+        (state.CourseSelected = action.payload.CourseSelected),
+      ];
+    },
   },
 });
 
-export const { setPersonalDetails, setAcademicDetails } =
+export const { setPersonalDetails, setAcademicDetails, setCourseDetails } =
   userRegisterSlice.actions;
 export const selectfullName = (state) => state.userRegister.fullName;
 export const selectUserEmail = (state) => state.userRegister.Email;
@@ -80,4 +89,8 @@ export const selectBranch = (state) => state.userRegister.Branch;
 export const selectSalary = (state) => state.userRegister.Salary;
 export const selectInterCompletionYear = (state) =>
   state.userRegister.InterCompletionYear;
+export const selectCourseSelected = (state) =>
+  state.userRegister.CourseSelected;
+export const selectCourseDetailsDone = (state) =>
+  state.userRegister.CourseDetailsDone;
 export default userRegisterSlice.reducer;

@@ -2,15 +2,32 @@
   color: white;
   background-color: #14151c;
   opacity: 0.9;
-  height: 35vh;
-  padding: 30px;
+  max-height: 35vh;
+  position: relative;
+
+  padding-top: 2vw;
+  padding-left: 1vw;
+  padding-right: 1vw;
   text-align: center;
+  overflow: hidden;
   width: 100%;
 }
 .main-footer > img {
   text-align: center;
   display: inline;
+  width: 10vw;
+  height: 3vw;
 }
 .row > p {
   text-align: center;
+  font-size: 1.3vw;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+.footer-body {
+  font-size: 1.5vw;
+  margin-top: 4vw;
+  border-bottom: 2px solid white;
+  margin-bottom: 0;
+  padding-bottom: 2vw;
 }

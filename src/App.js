@@ -1,11 +1,8 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
 import HeaderEnroll from "./components/HeaderEnroll";
 import "./css/App.css";
 import Header from "./components/Header";
 import EnrollMain from "./components/EnrollMain";
-import Register from "./components/Register";
-import firebase from "firebase/app";
 import {
   BrowserRouter as Router,
   Switch,
@@ -14,15 +11,15 @@ import {
 } from "react-router-dom";
 import Headersi from "./components/Headersi";
 import LoginBody from "./components/LoginBody";
-import RegisterBody from "./components/RegisterBody";
 import ForgotPassword from "./components/ForgotPassword";
-import { useEffect } from "react";
-import { auth, provider } from "./firebase.js";
 import Home from "./components/Home";
 import Course from "./components/Course";
 import Footer from "./components/Footer";
-import AcademicDetails from "./components/AcademicDetails";
-import Courses from "./components/Courses";
+import AcademicDetails from "./components/RegisterComponent/AcademicDetails";
+import CoursesSelection from "./components/RegisterComponent/CoursesSelection";
+import PersonalDetails from "./components/RegisterComponent/PersonalDetails";
+import Module from "./components/Module";
+import ModuleContainer from "./components/ModuleContainer";
 function App() {
   return (
     <div className="App">
@@ -32,22 +29,22 @@ function App() {
             <Headersi />
             <LoginBody />
           </Route>
-          <Route path="/register">
+          <Route path="/register/PersonalDetails">
             <Headersi />
-            <RegisterBody />
+            <PersonalDetails />
           </Route>
-          <Route path="/AcademicDetails">
+          <Route path="/register/AcademicDetails">
             <Headersi />
             <AcademicDetails />
           </Route>
-          <Route path="/CoursesSelection">
+          <Route path="/register/CoursesSelection">
             <Headersi />
-            <Courses />
+            <CoursesSelection />
           </Route>
           <Route exact path="/home">
             <Header />
             <Home />
-            <Course />
+            <ModuleContainer />
             <Footer />
           </Route>
           <Route path="/passwordreset">

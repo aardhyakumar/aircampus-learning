@@ -21,6 +21,7 @@ function Home() {
   const newUser = useSelector(selectisNewUser);
   const user = useSelector(selectUserName);
   const [playing, setplaying] = useState(false);
+  const [Watched, setWatched] = useState(false);
   const email = useSelector(selectUserEmail);
   const history = useHistory();
   useEffect(() => {
@@ -49,7 +50,7 @@ function Home() {
   }, []);
   return (
     <Container>
-      {newUser == true ? (
+      {newUser == false ? (
         <Banner>
           <Banner_left>
             <ReactPlayer
@@ -61,20 +62,17 @@ function Home() {
               playsinline="true"
             />
           </Banner_left>
-          <Banner_right>
-            <h1 className="heding_new">
-              The <span>Journey </span>to your
-            </h1>
-            <h2 className="heding">
-              <span>Successful</span> Career starts with
-            </h2>
-            <h2>
-              <span>Us</span>
-            </h2>
-            <Button onClick={() => setplaying(!playing)}>
-              Click on the video to learn more
-            </Button>
-          </Banner_right>
+          {Watched == false ? (
+            <button
+              onClick={() => {
+                setWatched(true);
+              }}
+            >
+              Mark it as Watched
+            </button>
+          ) : (
+            <button className="completed">Watched &#10004;</button>
+          )}
         </Banner>
       ) : (
         <BannerOld>
@@ -95,43 +93,97 @@ export default Home;
 const Container = styled.nav`
   position: relative;
   left: 0;
-  background: linear-gradient(0deg, #2a2c39 0%, #33364a 100%);
+  background: white;
+  background-color: #f5f6f7;
+  align-items: center;
   padding: 40px;
   right: 0;
   bottom: 0;
-  min-height: 60vw;
+  top: 6vh;
+  min-height: 50vw;
+  @media only screen and (max-width: 900px) {
+    padding-top: 1vw;
+  }
 `;
 const Banner = styled.div`
   position: relative;
   left: 0;
-  background: #444444;
+  background: #2a2c39e6;
   font-family: "Montserrat", sans-serif;
-  padding: 40px;
-  right: 0;
-  top: 90px;
+  padding: 2vw;
+  top: 5vw;
   bottom: 0;
-  height: 80vh;
-  box-shadow: 5px 5px 60px #444444;
+  width: 70vw;
+  margin: auto;
+  align-items: center;
+  height: 35vw;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: center;
+  button {
+    align-items: center;
+    margin: 0;
+    position: relative;
+    top: 22vw;
+    font-size: 1.2vw;
+    font-weight: 500;
+    border: 2px solid #ef6603;
+    background-color: #ef6603;
+    border-radius: 6px;
+    padding: 1vw 1.5vw;
+    &:hover {
+      border: 2px solid #444444;
+      background-color: #444444;
+      transition: 0.4s;
+    }
+  }
+  .completed {
+    align-items: center;
+    margin: 0;
+    position: relative;
+    top: 22vw;
+    font-size: 1.2vw;
+    font-weight: 500;
+    border: 2px solid #444444;
+    background-color: #444444;
+    border-radius: 6px;
+    padding: 1vw 1.5vw;
+  }
+  @media only screen and (max-width: 900px) {
+    padding-top: 0;
+    width: 80vw;
+  }
 `;
 const BannerOld = styled.div`
   position: relative;
   left: 0;
   font-family: "Montserrat", sans-serif;
-  padding: 40px;
+  padding: 3.5vw;
   right: 0;
-  top: 120px;
+  top: 5vw;
+  width: 70vw;
   bottom: 0;
   height: 35vw;
-  box-shadow: 5px 5px 60px #444444;
+  margin: auto;
+  border-radius: 0.5rem;
+  @media only screen and (max-width: 900px) {
+    padding-top: 0;
+    width: 80vw;
+  }
 `;
 const Banner_left = styled.div`
-  width: 50%;
+  width: 100%;
   position: absolute;
   bottom: 0px;
   left: 0;
   background: white;
-  padding: 0px;
-  height: 70vh;
+  height: 35vw;
+  align-items: center;
+  border-radius: 0.5rem;
+  .react-player {
+    border-radius: 0.5rem !important;
+    overflow: hidden;
+  }
 `;
 const Banner_right = styled.div`
   width: 50%;
@@ -196,12 +248,16 @@ const Button = styled.a`
 const WELCOME = styled.div`
   position: absolute;
   left: 0;
-  background: #2a2c39;
+  background: #2a2c39e6;
+  border-radius: 0.5rem;
   top: 0;
   font-family: "Montserrat", sans-serif;
   right: 0;
-  margin: 0 0.2vw;
   height: 35vw;
+  @media only screen and (max-width: 900px) {
+    padding-top: 0;
+    width: 80vw;
+  }
 `;
 const Box = styled.div`
   position: relative;
@@ -220,6 +276,11 @@ const Box = styled.div`
     position: absolute;
     left: 5vw;
     font-size: 8vw;
+  }
+  @media only screen and (min-width: 900px) {
+    h1 {
+      font-size: 7vw;
+    }
   }
   h2 {
     color: white;

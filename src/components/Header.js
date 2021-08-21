@@ -9,6 +9,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { auth, dbRef, provider } from "../firebase.js";
 import { useDispatch } from "react-redux";
+import Avatar from "@material-ui/core/Avatar";
 import {
   selectUserEmail,
   selectUserName,
@@ -70,26 +71,29 @@ function Header() {
 
       <NavMenu>
         <a>
-          <span>Home</span>
+          <span>Todo</span>
         </a>
 
         <a>
-          <span>Courses</span>
+          <span>Forums</span>
         </a>
         <a>
-          <span>About Us</span>
+          <span>Feed</span>
         </a>
       </NavMenu>
-      <InfoBox>
-        <p className="welcome">Hello</p>
-        <p>{Name}</p>
-      </InfoBox>
 
       {userPhoto ? (
         <img src={userPhoto} className="user_avatar" />
       ) : (
-        <img src="/images/user-avatar.png" className="user_avatar" />
+        <Avatar
+          alt={Name}
+          src="/static/images/avatar/1.jpg"
+          className="user_avatar_check"
+        />
       )}
+      <InfoBox>
+        <p>{Name}</p>
+      </InfoBox>
       <Login onClick={logout}>
         <strong>Log Out</strong>
       </Login>
@@ -105,7 +109,7 @@ const Container = styled.nav`
   color: white;
   background-color: #2a2c39e6;
   right: 0;
-  height: 85px;
+  height: 6.5vw;
   padding: 20px;
   display: flex;
   justify-content: space-between;
@@ -114,26 +118,43 @@ const Container = styled.nav`
   letter-spacing: 12px;
   z-index: 1;
   .user_avatar {
-    height: 40px;
+    height: 3vw;
     border: 2px solid white;
     border-radius: 20px;
     background-color: lightgray;
     position: relative;
-    right: 1vw;
+    left: 3vw;
+    border-right: 2px solid white;
+  }
+  .user_avatar_check {
+    height: 3vw;
+    background-color: black;
+    border: 3px solid #ef6603;
+    position: relative;
+    left: 1vw;
+    display: flex;
+    font-weight: 500;
+    padding-left: 1.2vw;
+    font-size: 2vw;
+    width: 3vw;
+    color: white;
+    border-radius: 20px;
   }
 `;
 const Logo = styled.a`
   padding: 0;
   margin-bottom: 15px;
+  margin-left: 1vw;
   cursor: pointer;
   width: 70px;
-  color: white;
+  color: black;
   max-height: 120px;
   font-size: 0;
   display: inline-block;
   img {
     display: block;
-    width: 180%;
+    width: 8.4vw;
+    height: 2.5vw;
   }
   &:hover {
     opacity: 0.5;
@@ -143,18 +164,17 @@ const NavMenu = styled.div`
   align-items: center;
   display: flex;
   color: #f9f9f9;
-  flex: 0.8;
+  flex: 1;
   flex-flow: row nowrap;
   height: 100%;
-  justify-content: flex-start;
-  margin: 10px;
+  justify-content: flex-end;
+  margin: 0.8vw;
   padding: 0px;
   position: relative;
-  left: 5vw;
   a {
     display: flex;
     align-items: center;
-    padding: 10px 12px;
+    padding: 1vw 1vw;
     img {
       height: 20px;
       min-width: 20px;
@@ -162,7 +182,7 @@ const NavMenu = styled.div`
       z-index: auto;
     }
     span {
-      font-size: 14px;
+      font-size: 1.2vw;
       font-weight: 600 !important;
       letter-spacing: 1px;
       color: #f9f9f9;
@@ -196,19 +216,18 @@ const NavMenu = styled.div`
       }
     }
   }
-  @media (max-width: 768px) {
-    display: none;
-  }
 `;
 const Login = styled.a`
-  padding: 8px 1vw;
+  padding: 0.7vw 1vw;
   display: flex;
+  font-size: 1vw;
   position: relative;
   right: 1vw;
+  text-decoration: none;
   overflow: hidden;
   align-items: center;
-  border: 2px solid #ef6603;
-  background-color: #444444;
+  border: 2px solid #444444;
+  background-color: #ef6603;
   letter-spacing: 1px;
   border-radius: 8px;
   color: white;
@@ -243,8 +262,12 @@ const SearchBar = styled.div`
   }
 `;
 const InfoBox = styled.div`
-  width: 7vw;
+  width: 14vw;
   position: relative;
+  border-left: 2px solid white;
+  margin-left: 1.5vw;
+  height: 3vw;
+  display: flex;
   .welcome {
     position: relative;
     margin-bottom: 1vh;
@@ -262,6 +285,8 @@ const InfoBox = styled.div`
     color: #f9f9f9;
     left: 1vw;
     margin: 0;
-    border-top: 2px solid #ef6603;
+    padding: 0;
+    display: flex;
+    width: 12vw;
   }
 `;

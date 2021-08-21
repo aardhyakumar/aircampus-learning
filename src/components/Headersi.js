@@ -7,7 +7,7 @@ function Headersi() {
       <Logo>
         <img src="/images/logo-white.png" />
       </Logo>
-      <Link to="/register">
+      <Link to="/register/PersonalDetails">
         <SignUp>
           <strong>Sign Up</strong>
         </SignUp>

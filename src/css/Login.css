@@ -15,13 +15,24 @@ body {
   background: none;
   background-size: cover;
 }
+.dropdown {
+  font-size: 1.5vw;
+}
+.dropdown_msg {
+  font-size: 1.2vw;
+  margin-top: 2vw;
+  margin-bottom: 2vw;
+}
+.selected {
+  color: #ef6603;
+}
 .alert {
   position: relative;
   left: 0.8vw;
   top: 1vw;
   font-size: 1.5vw;
   padding: 1vw;
-  border-radius: 6px;
+  border-radius: 18px;
   background-color: #ffd2d2;
   color: black;
   border: 2px solid #d8000c;
@@ -272,20 +283,76 @@ body {
 }
 
 .form__button {
-  max-width: 30vw;
+  width: 16vw;
   margin-top: 15px;
   margin-bottom: 10px;
   font-weight: bold;
-  font-size: 1.5vw;
-  text-align: left;
+  font-size: 0.7vw;
+  margin-right: 10px;
+  margin-left: 10px;
+  text-align: center;
   align-items: center;
   color: white;
   border: 2px solid #444444;
-  border-radius: 30px;
+  border-radius: 60px;
   outline: none;
   cursor: pointer;
   transition: 0.4s;
   background-color: #444444;
+}
+.form__button_p {
+  width: 20vw;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 0.8vw;
+  text-align: center;
+  align-items: center;
+  color: white;
+  border: 2px solid #444444;
+  border-radius: 60px;
+  outline: none;
+  cursor: pointer;
+  transition: 0.4s;
+
+  background-color: #444444;
+}
+.form__button_register {
+  width: 16vw;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 1vw;
+  text-align: center;
+  align-items: center;
+  color: white;
+  border: 2px solid #ef6603;
+  border-radius: 60px;
+  outline: none;
+  cursor: pointer;
+  transition: 0.4s;
+  background-color: #ef6603;
+}
+.button_container {
+  display: flex;
+  justify-content: space-between;
+}
+.button_container_course {
+  display: flex;
+  margin-top: 5vw;
+  justify-content: space-between;
+}
+@media screen and (max-width: 969px) {
+  .button_container {
+    display: block;
+  }
+  .button_container_course {
+    display: block;
+  }
+  .form__button {
+    width: 20vw;
+    font-size: 1vw;
+  }
 }
 .form__button__reset {
   width: 20vw;
@@ -314,7 +381,11 @@ body {
   border: 2px solid #ef6603;
   color: white;
 }
-
+.form__button_register:hover {
+  background-color: #444444;
+  border: 2px solid #444444;
+  color: white;
+}
 .form__button:active {
   transform: scale(0.98);
 }
