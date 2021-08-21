@@ -1,0 +1,43 @@
+.nav-menu-open {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  transition: 0.4s;
+  padding: 4px;
+  border-radius: 4px;
+}
+.nav-menu-open:hover {
+  border: 2px solid #ef6603;
+  transition: 0.2s;
+  cursor: pointer;
+}
+@media only screen and (min-width: 740px) {
+  .nav-menu-open {
+    display: none;
+  }
+}
+.nav-menu-closed {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  left: 85%;
+  transition: 0.4s;
+  border: 2px solid #ef6603;
+  padding: 4px;
+  border-radius: 4px;
+}
+@media only screen and (max-width: 625px) {
+  .nav-menu-closed {
+    left: 80%;
+  }
+}
+@media only screen and (max-width: 510px) {
+  .nav-menu-closed {
+    left: 78%;
+  }
+}
+@media only screen and (max-width: 450px) {
+  .nav-menu-closed {
+    left: 75%;
+  }
+}

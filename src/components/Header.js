@@ -2,8 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import SearchIcon from "@material-ui/icons/Search";
 import firebase from "firebase/app";
+import "../css/Header.css";
 import "firebase/auth";
 import { useHistory } from "react-router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -22,9 +25,11 @@ import {
   selectUserPassword,
 } from "../features/user/userSlice";
 import { useSelector } from "react-redux";
+import NavMenuPrime from "./NavMenu.js";
 function Header() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const [CLicked, setCLicked] = useState(false);
   const userPhoto = useSelector(selectUserPhoto);
   const useremail = useSelector(selectUserEmail);
   const newUser = useSelector(selectisNewUser);
@@ -85,11 +90,13 @@ function Header() {
       {userPhoto ? (
         <img src={userPhoto} className="user_avatar" />
       ) : (
-        <Avatar
-          alt={Name}
-          src="/static/images/avatar/1.jpg"
-          className="user_avatar_check"
-        />
+        <UserAvatar>
+          <Avatar
+            alt={Name}
+            src="/static/images/avatar/1.jpg"
+            className="user_avatar_check"
+          />
+        </UserAvatar>
       )}
       <InfoBox>
         <p>{Name}</p>
@@ -97,10 +104,38 @@ function Header() {
       <Login onClick={logout}>
         <strong>Log Out</strong>
       </Login>
+      <div
+        className={CLicked ? "nav-menu-closed" : "nav-menu-open"}
+        onClick={() => {
+          setCLicked(!CLicked);
+        }}
+      >
+        <FontAwesomeIcon icon={CLicked ? faWindowClose : faBars} />
+      </div>
+      {CLicked && (
+        <NewMenu>
+          <a>
+            <span>Todo</span>
+          </a>
+
+          <a>
+            <span>Forums</span>
+          </a>
+          <a>
+            <span>Feed</span>
+          </a>
+          <div className="info">
+            <p>
+              <strong>User:</strong>
+              {Name}
+            </p>
+            <button onClick={logout}>Logout</button>
+          </div>
+        </NewMenu>
+      )}
     </Container>
   );
 }
-
 export default Header;
 const Container = styled.nav`
   position: fixed;
@@ -126,19 +161,6 @@ const Container = styled.nav`
     left: 3vw;
     border-right: 2px solid white;
   }
-  .user_avatar_check {
-    height: 3vw;
-    background-color: black;
-    border: 3px solid #ef6603;
-    position: relative;
-    left: 1vw;
-    display: flex;
-    font-weight: 500;
-    padding-left: 1.2vw;
-    font-size: 2vw;
-    width: 3vw;
-    color: white;
-    border-radius: 20px;
   }
 `;
 const Logo = styled.a`
@@ -216,6 +238,9 @@ const NavMenu = styled.div`
       }
     }
   }
+  @media only screen and (max-width: 740px) {
+    display: none;
+  }
 `;
 const Login = styled.a`
   padding: 0.7vw 1vw;
@@ -238,6 +263,9 @@ const Login = styled.a`
     transition: 0.6s;
     box-shadow: 0px 0px 10px 1px #ef6603;
     background-color: #ef6603;
+  }
+  @media only screen and (max-width: 740px) {
+    display: none;
   }
 `;
 const SearchBar = styled.div`
@@ -288,5 +316,132 @@ const InfoBox = styled.div`
     padding: 0;
     display: flex;
     width: 12vw;
+  }
+  .bars {
+    color: white;
+    width: 40px;
+    background-color: black;
+    height: 70px;
+  }
+  @media only screen and (max-width: 740px) {
+    display: none;
+`;
+const UserAvatar = styled.div`
+.user_avatar_check {
+  height: 3vw;
+  background-color: black;
+  border: 3px solid #ef6603;
+  position: relative;
+  left: 1vw;
+  display: flex;
+  font-weight: 500;
+  padding-left: 1.2vw;
+  font-size: 2vw;
+  width: 3vw;
+  color: white;
+  border-radius: 20px;
+
+  }
+  @media only screen and (max-width: 740px) {
+    display: none;
+  `;
+const NewMenu = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  background: linear-gradient(0deg, #2a2c39 0%, #33364a 100%);
+  transition: 0.4s;
+  position: relative;
+  width: 150vw;
+  border-radius: 8px;
+  top: 23vw;
+  right: 5vw;
+  a {
+    display: flex;
+    align-items: center;
+    padding: 1vw 2vw;
+    margin: 2vw 2vw;
+    justify-content: center;
+
+    span {
+      font-size: 1.5vw;
+      font-weight: 600 !important;
+      letter-spacing: 2px;
+      color: #f9f9f9;
+      line-height: 1.2;
+      padding: 4px 10px;
+      cursor: pointer;
+      white-space: nowrap;
+      position: relative;
+      &:before {
+        background-color: #ef6603;
+        border-radius: 0px 0px 4px 4px;
+        bottom: -2px;
+        content: "";
+        height: 2px;
+        left: 0px;
+        opacity: 0;
+        position: absolute;
+        right: 0px;
+        transform-origin: center;
+        transform: scaleX(0);
+        transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
+        visibility: hidden;
+        width: auto;
+      }
+    }
+    &:hover {
+      span:before {
+        transform: scaleX(0.8);
+        visibility: visible;
+        opacity: 1 !important;
+      }
+    }
+  }
+  .info {
+    border-top: 1px solid white;
+    width: 90%;
+    padding: 1vw 2vw;
+    display: flex;
+    margin-left: 5%;
+    justify-content: space-between;
+    p {
+      font-size: 1.4vw;
+      position: relative;
+      left: 2vw;
+      strong {
+        font-size: 2vw;
+        color: #ef6603;
+      }
+    }
+    button {
+      font-size: 1vw;
+      height: 5vw;
+      position: relative;
+      top: 2vw;
+      text-decoration: none;
+      overflow: hidden;
+      align-items: center;
+      border: 2px solid #444444;
+      background-color: #ef6603;
+      letter-spacing: 1px;
+      border-radius: 8px;
+    }
+  }
+  @media only screen and (min-width: 740px) {
+    display: none;
+  }
+
+  @media only screen and (max-width: 700px) {
+    top: 23.5vw;
+  }
+  @media only screen and (max-width: 660px) {
+    top: 24vw;
+  }
+  @media only screen and (max-width: 600px) {
+    top: 25vw;
+  }
+  @media only screen and (max-width: 560px) {
+    top: 26vw;
   }
 `;
