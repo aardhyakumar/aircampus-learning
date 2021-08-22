@@ -6,7 +6,7 @@ import "../css/Header.css";
 import "firebase/auth";
 import { useHistory } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faWindowClose } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -110,7 +110,7 @@ function Header() {
           setCLicked(!CLicked);
         }}
       >
-        <FontAwesomeIcon icon={CLicked ? faWindowClose : faBars} />
+        <FontAwesomeIcon icon={CLicked ? faTimes : faBars} />
       </div>
       {CLicked && (
         <NewMenu>

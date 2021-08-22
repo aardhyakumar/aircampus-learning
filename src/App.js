@@ -20,6 +20,7 @@ import CoursesSelection from "./components/RegisterComponent/CoursesSelection";
 import PersonalDetails from "./components/RegisterComponent/PersonalDetails";
 import Module from "./components/Module";
 import ModuleContainer from "./components/ModuleContainer";
+import InnerMain from "./components/InnerModules/InnerMain";
 function App() {
   return (
     <div className="App">
@@ -43,9 +44,7 @@ function App() {
           </Route>
           <Route exact path="/home">
             <Header />
-            <Home />
-            <ModuleContainer />
-            <Footer />
+            <InnerMain />
           </Route>
           <Route path="/passwordreset">
             <Headersi />
