@@ -21,6 +21,7 @@ import PersonalDetails from "./components/RegisterComponent/PersonalDetails";
 import Module from "./components/Module";
 import ModuleContainer from "./components/ModuleContainer";
 import InnerMain from "./components/InnerModules/InnerMain";
+import ExercisesContainer from "./components/ExercisesContainer";
 function App() {
   return (
     <div className="App">
@@ -44,11 +45,22 @@ function App() {
           </Route>
           <Route exact path="/home">
             <Header />
+            <Home />
+            <ModuleContainer />
+            <Footer />
+          </Route>
+          <Route path="/topic">
+            <Header />
             <InnerMain />
+            <Footer />
           </Route>
           <Route path="/passwordreset">
             <Headersi />
             <ForgotPassword />
+          </Route>
+          <Route path="/subtopic">
+            <Header />
+            <ExercisesContainer />
           </Route>
           <Route path="/Enroll">
             <HeaderEnroll />

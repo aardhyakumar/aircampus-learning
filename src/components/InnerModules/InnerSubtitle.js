@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function InnerSubtitle({ Completed }) {
   const [Done, setDone] = useState(false);
@@ -16,7 +17,9 @@ function InnerSubtitle({ Completed }) {
           icon={faCheckCircle}
           className={Done ? "colored" : "noncolored"}
         />
-        <h2>Introduction to Unix</h2>
+        <Link to="/subtopic" style={{ textDecoration: "none" }}>
+          <h2>Introduction to Unix</h2>
+        </Link>
       </Subtitle>
     </Container>
   );
@@ -34,6 +37,10 @@ export const Subtitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  a {
+    padding: 0;
+    margin: 0;
+  }
   h2 {
     padding-top: 0.5vw;
     margin-left: 2vw;
@@ -51,7 +58,7 @@ export const Subtitle = styled.div`
     height: 2vw;
   }
   @media only screen and (max-width: 740px) {
-    h1 {
+    h2 {
       padding-top: 1vw !important;
     }
   }

@@ -126,7 +126,7 @@ function Header() {
           </a>
           <div className="info">
             <p>
-              <strong>User:</strong>
+              <strong>User &rarr;</strong>
               {Name}
             </p>
             <button onClick={logout}>Logout</button>

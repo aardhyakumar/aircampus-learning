@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 function Module({ Name, Description, Status }) {
   const name = Name;
@@ -25,7 +26,9 @@ function Module({ Name, Description, Status }) {
         {Locked == true ? (
           <button className="button__locked">Locked 🔒</button>
         ) : (
-          <button>Start</button>
+          <Link to="/topic">
+            <button>Start</button>
+          </Link>
         )}
       </Button>
     </Container>
@@ -50,7 +53,7 @@ const Container = styled.div`
   @media only screen and (max-width: 900px) {
     height: 22vh;
     margin-top: 8vw;
-    margin-bottom: 8vw;
+    margin-bottom: 7vw;
     width: 70vw;
   }
 `;
@@ -103,6 +106,10 @@ const Button = styled.div`
   align-items: center;
   justify-content: flex-end;
   border-radius: 0.5rem;
+  a {
+    padding: 0;
+    margin: 0;
+  }
   button {
     border-radius: 0.2rem;
     padding-right: 3vw;

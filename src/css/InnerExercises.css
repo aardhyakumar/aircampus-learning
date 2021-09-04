@@ -1,0 +1,8 @@
+.clicked {
+  background-color: #35324e;
+  cursor: pointer;
+  opacity: 1;
+}
+.not-clicked {
+  opacity: 0.5;
+}
